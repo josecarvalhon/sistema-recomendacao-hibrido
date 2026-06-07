@@ -1,0 +1,17 @@
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache
+.git
+.gitignore
+.venv
+venv
+env
+artifacts/*.pkl
+artifacts/*.joblib
+artifacts/metrics.json
+data/*.csv
+.DS_Store
+*.log
+.env

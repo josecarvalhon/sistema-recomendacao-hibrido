@@ -1,0 +1,29 @@
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+pytest-cache-files-*
+.coverage
+htmlcov/
+
+# venvs
+.venv/
+venv/
+env/
+
+# artefatos de treino
+artifacts/*.joblib
+artifacts/*.pkl
+artifacts/metrics.json
+
+# dados (não versionar)
+data/*.csv
+
+# IDE / SO
+.DS_Store
+.idea/
+.vscode/
+*.log
+
+# secrets
+.env

@@ -1,0 +1,35 @@
+services:
+  trainer:
+    build: .
+    container_name: reco_trainer
+    command: python -m scripts.train
+    environment:
+      DATA_DIR: /app/data
+      ARTIFACTS_DIR: /app/artifacts
+      RANDOM_SEED: "42"
+      TEST_FRACTION: "0.2"
+      MIN_INTERACTIONS_USER: "5"
+      MIN_INTERACTIONS_ITEM: "5"
+      TOP_K: "10"
+      ALS_FACTORS: "32"
+      ALS_ITERS: "15"
+      HYBRID_WEIGHTS: "0.4,0.4,0.2"
+    volumes:
+      - ${DATA_HOST_DIR:-./data}:/app/data:ro
+      - ./artifacts:/app/artifacts
+
+  api:
+    build: .
+    container_name: reco_api
+    depends_on:
+      trainer:
+        condition: service_completed_successfully
+    environment:
+      DATA_DIR: /app/data
+      ARTIFACTS_DIR: /app/artifacts
+      TOP_K: "10"
+    volumes:
+      - ${DATA_HOST_DIR:-./data}:/app/data:ro
+      - ./artifacts:/app/artifacts:ro
+    ports:
+      - "8000:8000"
